@@ -1,0 +1,434 @@
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FlowDirection="RightToLeft"
+             FontFamily="Segoe UI, Tahoma, Arial"
+             Background="{DynamicResource BackgroundBrush}">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+        <!-- Action Buttons -->
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#38BDF8"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#0369A1"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnGhost" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#0284C7"/>
+            <Setter Property="Background" Value="#F0F9FF"/>
+            <Setter Property="BorderBrush" Value="#BAE6FD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#E0F2FE"/><Setter TargetName="bd" Property="BorderBrush" Value="#38BDF8"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#BAE6FD"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnSuccess" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="#10B981"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#34D399"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#059669"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- KPI Mini Glass Card Style -->
+        <Style x:Key="MiniCard" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="Margin" Value="0,0,12,0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#0F172A" Direction="270" ShadowDepth="2" BlurRadius="6" Opacity="0.04"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Row -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="2,0,2,12">
+            <TextBlock Text="التقارير والإحصائيات" FontSize="24" FontWeight="Bold" FontFamily="{StaticResource HeaderFontFamily}" Foreground="#0F172A"/>
+        </StackPanel>
+
+        <!-- Main Tab Control -->
+        <TabControl Grid.Row="1" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" Background="Transparent" BorderThickness="0" FontSize="14">
+            
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!-- Tab 1: التقرير المالي والإيرادات -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <TabItem Header="📊 التقرير المالي والإيرادات" Padding="18,10">
+                <Grid Margin="0,12,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Filter Toolbar -->
+                    <Border Grid.Row="0" Background="#FFFFFF" BorderBrush="#E3EAF1" BorderThickness="1" CornerRadius="12" Padding="16" Margin="0,0,0,12">
+                        <DockPanel LastChildFill="False">
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="من تاريخ:" FontSize="13.5" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#334155"/>
+                                <DatePicker Width="145" Height="38" SelectedDate="{Binding FinancialStartDate}"/>
+
+                                <TextBlock Text="إلى تاريخ:" FontSize="13.5" VerticalAlignment="Center" Margin="14,0,8,0" Foreground="#334155"/>
+                                <DatePicker Width="145" Height="38" SelectedDate="{Binding FinancialEndDate}"/>
+
+                                <Button Content="توليد التقرير" Style="{StaticResource BtnPrimary}" Margin="14,0,0,0" Command="{Binding GenerateFinancialReportCommand}"/>
+                            </StackPanel>
+
+                            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Content="🖨️ معاينة وطباعة التقرير" Style="{StaticResource BtnGhost}" Command="{Binding PrintFinancialReportCommand}"/>
+                                <Button Content="📗 تصدير إكسيل (Excel)" Style="{StaticResource BtnGhost}" Margin="10,0,0,0" Command="{Binding ExportFinancialExcelCommand}"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- KPI Cards Row -->
+                    <Grid Grid.Row="1" Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Card 1: عدد الفواتير -->
+                        <Border Grid.Column="0" Style="{StaticResource MiniCard}" Background="#F0F9FF" BorderBrush="#BAE6FD">
+                            <StackPanel>
+                                <TextBlock Text="عدد الفواتير المصدرة" FontSize="12.5" FontWeight="Bold" Foreground="#0284C7"/>
+                                <TextBlock Text="{Binding FinancialInvoiceCount}" FontSize="24" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Card 2: إجمالي الخدمات -->
+                        <Border Grid.Column="1" Style="{StaticResource MiniCard}" Background="#ECFDF5" BorderBrush="#A7F3D0">
+                            <StackPanel>
+                                <TextBlock Text="إجمالي أجور الخدمات" FontSize="12.5" FontWeight="Bold" Foreground="#059669"/>
+                                <TextBlock Text="{Binding FinancialTotalServices, StringFormat='{}{0:N2} د.ل'}" FontSize="22" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Card 3: إجمالي قطع الغيار -->
+                        <Border Grid.Column="2" Style="{StaticResource MiniCard}" Background="#FFFBEB" BorderBrush="#FDE68A">
+                            <StackPanel>
+                                <TextBlock Text="إجمالي مبيعات القطع" FontSize="12.5" FontWeight="Bold" Foreground="#D97706"/>
+                                <TextBlock Text="{Binding FinancialTotalParts, StringFormat='{}{0:N2} د.ل'}" FontSize="22" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Card 4: الإجمالي الكلي للإيرادات -->
+                        <Border Grid.Column="3" Style="{StaticResource MiniCard}" Background="#F5F3FF" BorderBrush="#DDD6FE" Margin="0">
+                            <StackPanel>
+                                <TextBlock Text="صافي الإيرادات الكلية" FontSize="12.5" FontWeight="Bold" Foreground="#7C3AED"/>
+                                <TextBlock Text="{Binding FinancialGrandTotal, StringFormat='{}{0:N2} د.ل'}" FontSize="22" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- DataGrid -->
+                    <Border Grid.Row="2" Background="#FFFFFF" BorderBrush="#E3EAF1" BorderThickness="1" CornerRadius="12" Padding="1">
+                        <DataGrid ItemsSource="{Binding FinancialInvoices}"
+                                  AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                                  GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0"
+                                  RowHeight="42" FontSize="13.5" SelectionMode="Single"
+                                  BorderThickness="0" Background="Transparent">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="رقم الفاتورة" Binding="{Binding InvoiceNumber}" Width="130"/>
+                                <DataGridTextColumn Header="رقم أمر الإصلاح" Binding="{Binding RepairOrderNumber}" Width="130"/>
+                                <DataGridTextColumn Header="اسم الزبون" Binding="{Binding CustomerName}" Width="160"/>
+                                <DataGridTextColumn Header="هاتف الزبون" Binding="{Binding CustomerPhone}" Width="120"/>
+                                <DataGridTextColumn Header="إجمالي الخدمات" Binding="{Binding ServicesTotalDisplay}" Width="120"/>
+                                <DataGridTextColumn Header="إجمالي القطع" Binding="{Binding SparePartsTotalDisplay}" Width="120"/>
+                                <DataGridTextColumn Header="الخصم" Binding="{Binding DiscountAmountDisplay}" Width="90"/>
+                                <DataGridTextColumn Header="الضريبة" Binding="{Binding TaxAmountDisplay}" Width="90"/>
+                                <DataGridTextColumn Header="الصافي الإجمالي" Binding="{Binding TotalAmountDisplay}" Width="130"/>
+                                <DataGridTextColumn Header="طريقة الدفع" Binding="{Binding PaymentMethod}" Width="120"/>
+                                <DataGridTextColumn Header="التاريخ" Binding="{Binding InvoiceDate}" Width="145"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!-- Tab 2: تقرير المخزون وقطع الغيار -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <TabItem Header="📦 تقرير المخزون والمستودع" Padding="18,10">
+                <Grid Margin="0,12,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Filter Toolbar -->
+                    <Border Grid.Row="0" Background="#FFFFFF" BorderBrush="#E3EAF1" BorderThickness="1" CornerRadius="12" Padding="16" Margin="0,0,0,12">
+                        <DockPanel LastChildFill="False">
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBox Width="260" Height="38" FontSize="13.5" VerticalContentAlignment="Center" Padding="10,0"
+                                         Text="{Binding InventorySearchText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                <CheckBox Content="القطع قرب الحد الأدنى فقط" IsChecked="{Binding InventoryLowStockOnly}"
+                                          VerticalAlignment="Center" Margin="14,0,0,0" FontSize="13.5" FontWeight="SemiBold" Foreground="#DC2626"/>
+
+                                <Button Content="تحديث" Style="{StaticResource BtnPrimary}" Margin="14,0,0,0" Command="{Binding GenerateInventoryReportCommand}"/>
+                            </StackPanel>
+
+                            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Content="🖨️ معاينة وطباعة تقرير المخزون" Style="{StaticResource BtnGhost}" Command="{Binding PrintInventoryReportCommand}"/>
+                                <Button Content="📗 تصدير إكسيل (Excel)" Style="{StaticResource BtnGhost}" Margin="10,0,0,0" Command="{Binding ExportInventoryExcelCommand}"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- KPI Cards Row -->
+                    <Grid Grid.Row="1" Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Card 1: عدد الأصناف -->
+                        <Border Grid.Column="0" Style="{StaticResource MiniCard}" Background="#F0F9FF" BorderBrush="#BAE6FD">
+                            <StackPanel>
+                                <TextBlock Text="عدد أصناف القطع" FontSize="12.5" FontWeight="Bold" Foreground="#0284C7"/>
+                                <TextBlock Text="{Binding InventoryTotalTypes}" FontSize="24" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Card 2: إجمالي الكميات -->
+                        <Border Grid.Column="1" Style="{StaticResource MiniCard}" Background="#ECFDF5" BorderBrush="#A7F3D0">
+                            <StackPanel>
+                                <TextBlock Text="إجمالي كمية القطع" FontSize="12.5" FontWeight="Bold" Foreground="#059669"/>
+                                <TextBlock Text="{Binding InventoryTotalQuantity}" FontSize="24" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Card 3: قطع منخفضة المخزون -->
+                        <Border Grid.Column="2" Style="{StaticResource MiniCard}" Background="#FEF2F2" BorderBrush="#FECACA">
+                            <StackPanel>
+                                <TextBlock Text="أصناف قاربت على النفاد" FontSize="12.5" FontWeight="Bold" Foreground="#DC2626"/>
+                                <TextBlock Text="{Binding InventoryLowStockCount}" FontSize="24" FontWeight="Bold" Foreground="#DC2626" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Card 4: إجمالي القيمة التقديرية -->
+                        <Border Grid.Column="3" Style="{StaticResource MiniCard}" Background="#F5F3FF" BorderBrush="#DDD6FE" Margin="0">
+                            <StackPanel>
+                                <TextBlock Text="إجمالي القيمة التقديرية" FontSize="12.5" FontWeight="Bold" Foreground="#7C3AED"/>
+                                <TextBlock Text="{Binding InventoryTotalValue, StringFormat='{}{0:N2} د.ل'}" FontSize="22" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- DataGrid -->
+                    <Border Grid.Row="2" Background="#FFFFFF" BorderBrush="#E3EAF1" BorderThickness="1" CornerRadius="12" Padding="1">
+                        <DataGrid ItemsSource="{Binding InventoryItems}"
+                                  AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                                  GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0"
+                                  RowHeight="42" FontSize="13.5" SelectionMode="Single"
+                                  BorderThickness="0" Background="Transparent">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="رمز القطعة" Binding="{Binding PartCode}" Width="140"/>
+                                <DataGridTextColumn Header="اسم القطعة" Binding="{Binding PartName}" Width="240"/>
+                                <DataGridTextColumn Header="الكمية المتوفرة" Binding="{Binding QuantityInStock}" Width="120"/>
+                                <DataGridTextColumn Header="الحد الأدنى" Binding="{Binding MinStockLevel}" Width="110"/>
+                                <DataGridTextColumn Header="سعر الشراء" Binding="{Binding BuyingPriceDisplay}" Width="120"/>
+                                <DataGridTextColumn Header="سعر البيع" Binding="{Binding SellingPriceDisplay}" Width="120"/>
+                                <DataGridTextColumn Header="إجمالي القيمة" Binding="{Binding TotalValueDisplay}" Width="130"/>
+                                <DataGridTextColumn Header="الفئة" Binding="{Binding Category}" Width="130"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!-- Tab 3: أكثر الخدمات وقطع الغيار طلباً -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <TabItem Header="🔥 الأكثر طلباً واستهلاكاً" Padding="18,10">
+                <Grid Margin="0,12,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Filter Toolbar -->
+                    <Border Grid.Row="0" Background="#FFFFFF" BorderBrush="#E3EAF1" BorderThickness="1" CornerRadius="12" Padding="16" Margin="0,0,0,12">
+                        <DockPanel LastChildFill="False">
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="من تاريخ:" FontSize="13.5" VerticalAlignment="Center" Margin="0,0,8,0" Foreground="#334155"/>
+                                <DatePicker Width="135" Height="38" SelectedDate="{Binding TopStartDate}"/>
+
+                                <TextBlock Text="إلى:" FontSize="13.5" VerticalAlignment="Center" Margin="10,0,8,0" Foreground="#334155"/>
+                                <DatePicker Width="135" Height="38" SelectedDate="{Binding TopEndDate}"/>
+
+                                <TextBlock Text="محتوى التقرير:" FontSize="13.5" VerticalAlignment="Center" Margin="10,0,8,0" Foreground="#334155"/>
+                                <ComboBox Width="185" Height="38" SelectedValuePath="Tag" SelectedValue="{Binding TopCategory}">
+                                    <ComboBoxItem Content="الزوز مع بعض (خدمات وقطع غيار)" Tag="الكل" IsSelected="True"/>
+                                    <ComboBoxItem Content="أكثر الخدمات طلباً فقط" Tag="الخدمات"/>
+                                    <ComboBoxItem Content="أكثر قطع الغيار استهلاكاً فقط" Tag="قطع الغيار"/>
+                                </ComboBox>
+
+                                <TextBlock Text="العدد:" FontSize="13.5" VerticalAlignment="Center" Margin="10,0,8,0" Foreground="#334155"/>
+                                <ComboBox Width="75" Height="38" SelectedValuePath="Content" SelectedValue="{Binding TopN}">
+                                    <ComboBoxItem Content="5"/>
+                                    <ComboBoxItem Content="10" IsSelected="True"/>
+                                    <ComboBoxItem Content="20"/>
+                                </ComboBox>
+
+                                <Button Content="عرض الإحصائيات" Style="{StaticResource BtnPrimary}" Margin="12,0,0,0" Command="{Binding GenerateTopReportCommand}"/>
+                            </StackPanel>
+
+                            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Content="🖨️ طباعة التقرير" Style="{StaticResource BtnGhost}" Command="{Binding PrintTopReportCommand}"/>
+                                <Button Content="📗 تصدير إكسيل (Excel)" Style="{StaticResource BtnGhost}" Margin="10,0,0,0" Command="{Binding ExportTopExcelCommand}"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- KPI Cards Row -->
+                    <Grid Grid.Row="1" Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Card 1: الخدمة الأكثر طلباً -->
+                        <Border Grid.Column="0" Style="{StaticResource MiniCard}" Background="#F0F9FF" BorderBrush="#BAE6FD">
+                            <StackPanel>
+                                <TextBlock Text="الخدمة الأكثر طلباً" FontSize="12.5" FontWeight="Bold" Foreground="#0284C7"/>
+                                <TextBlock Text="{Binding MostRequestedServiceName}" FontSize="18" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Card 2: القطعة الأكثر طلباً -->
+                        <Border Grid.Column="1" Style="{StaticResource MiniCard}" Background="#FFFBEB" BorderBrush="#FDE68A">
+                            <StackPanel>
+                                <TextBlock Text="القطعة الأكثر استهلاكاً" FontSize="12.5" FontWeight="Bold" Foreground="#D97706"/>
+                                <TextBlock Text="{Binding MostRequestedPartName}" FontSize="18" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0" TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Card 3: عدد عمليات الخدمات -->
+                        <Border Grid.Column="2" Style="{StaticResource MiniCard}" Background="#ECFDF5" BorderBrush="#A7F3D0">
+                            <StackPanel>
+                                <TextBlock Text="إجمالي عمليات الخدمات" FontSize="12.5" FontWeight="Bold" Foreground="#059669"/>
+                                <TextBlock Text="{Binding TopTotalServicesCount}" FontSize="22" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Card 4: إيراد الخدمات -->
+                        <Border Grid.Column="3" Style="{StaticResource MiniCard}" Background="#F5F3FF" BorderBrush="#DDD6FE" Margin="0">
+                            <StackPanel>
+                                <TextBlock Text="إجمالي إيراد الخدمات" FontSize="12.5" FontWeight="Bold" Foreground="#7C3AED"/>
+                                <TextBlock Text="{Binding TopTotalServicesRevenue, StringFormat='{}{0:N2} د.ل'}" FontSize="22" FontWeight="Bold" Foreground="#0F172A" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- Dual DataGrids (Services & Parts) -->
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="14"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Left: أكثر الخدمات -->
+                        <Border Grid.Column="0" Background="#FFFFFF" BorderBrush="#E3EAF1" BorderThickness="1" CornerRadius="12" Padding="12">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Top" Text="قائمة أكثر الخدمات إنجازاً" FontSize="15" FontWeight="Bold" Foreground="#0F172A" Margin="4,0,4,8"/>
+                                <DataGrid ItemsSource="{Binding TopServices}"
+                                          AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                                          GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0"
+                                          RowHeight="40" FontSize="13.5" SelectionMode="Single"
+                                          BorderThickness="0" Background="Transparent">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="اسم الخدمة" Binding="{Binding ServiceName}" Width="*"/>
+                                        <DataGridTextColumn Header="التكرار" Binding="{Binding CountDisplay}" Width="80"/>
+                                        <DataGridTextColumn Header="الإيراد (د.ل)" Binding="{Binding TotalRevenueDisplay}" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                        </Border>
+
+                        <!-- Right: أكثر قطع الغيار -->
+                        <Border Grid.Column="2" Background="#FFFFFF" BorderBrush="#E3EAF1" BorderThickness="1" CornerRadius="12" Padding="12">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Top" Text="قائمة أكثر قطع الغيار طلباً" FontSize="15" FontWeight="Bold" Foreground="#0F172A" Margin="4,0,4,8"/>
+                                <DataGrid ItemsSource="{Binding TopSpareParts}"
+                                          AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                                          GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0"
+                                          RowHeight="40" FontSize="13.5" SelectionMode="Single"
+                                          BorderThickness="0" Background="Transparent">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="رمز القطعة" Binding="{Binding PartCode}" Width="110"/>
+                                        <DataGridTextColumn Header="اسم القطعة" Binding="{Binding PartName}" Width="*"/>
+                                        <DataGridTextColumn Header="الكمية" Binding="{Binding QuantitySoldDisplay}" Width="80"/>
+                                        <DataGridTextColumn Header="الإيراد (د.ل)" Binding="{Binding TotalRevenueDisplay}" Width="120"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

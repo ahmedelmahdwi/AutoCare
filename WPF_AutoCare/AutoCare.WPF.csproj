@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net481</TargetFramework>
+    <RootNamespace>C__project_Auto_Care</RootNamespace>
+    <AssemblyName>WPF Auto Care</AssemblyName>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="app_logo.png" />
+    <None Update="app_logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoCare.Domain\AutoCare.Domain.csproj" />
+    <ProjectReference Include="..\AutoCare.Application\AutoCare.Application.csproj" />
+    <ProjectReference Include="..\AutoCare.Infrastructure\AutoCare.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,519 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FlowDirection="RightToLeft"
+             FontFamily="Segoe UI, Tahoma, Arial"
+             Background="{DynamicResource BackgroundBrush}">
+
+    <UserControl.Resources>
+        <!-- Standard Button Styles with Fixed Widths -->
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#38BDF8"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#0369A1"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnSuccess" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="#10B981"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#34D399"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#059669"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnGhost" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="Foreground" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="1.2"/>
+            <Setter Property="BorderBrush" Value="#BAE6FD"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#F0F9FF"/>
+                                <Setter TargetName="bd" Property="BorderBrush" Value="#0284C7"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#E0F2FE"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 1. Header Title & Actions -->
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="📅 جدول المواعيد والحجوزات" FontSize="24" FontWeight="Bold" FontFamily="{StaticResource HeaderFontFamily}" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                <TextBlock Text="إدارة وجدولة مواعيد استقبال السيارات، فحص التعارض وتحويل الحجز إلى كرت صيانة" FontSize="13" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,3,0,0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Style="{StaticResource BtnSuccess}" Width="160" Height="40" Command="{Binding NewAppointmentCommand}" Margin="0,0,10,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="+" FontSize="16" FontWeight="Bold" Margin="0,0,6,0"/>
+                        <TextBlock Text="حجز موعد جديد" FontSize="13.5"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Style="{StaticResource BtnGhost}" Width="100" Height="40" Command="{Binding RefreshCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🔄" FontSize="13" Margin="0,0,6,0"/>
+                        <TextBlock Text="تحديث" FontSize="13"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- 2. Date Navigation Bar & KPI Cards -->
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Date Navigator Card -->
+            <Border Grid.Column="0" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="12" Padding="14,10">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Style="{StaticResource BtnGhost}" Width="95" Height="34" Command="{Binding PreviousDayCommand}" Margin="0,0,8,0">
+                        <TextBlock Text="◀ السابق" FontSize="12.5"/>
+                    </Button>
+
+                    <Button Style="{StaticResource BtnPrimary}" Width="85" Height="34" Command="{Binding TodayCommand}" Margin="0,0,10,0">
+                        <TextBlock Text="اليوم" FontSize="12.5"/>
+                    </Button>
+
+                    <DatePicker Height="34" Width="145" SelectedDate="{Binding SelectedDate, Mode=TwoWay}" Margin="0,0,10,0" VerticalContentAlignment="Center"/>
+
+                    <Button Style="{StaticResource BtnGhost}" Width="95" Height="34" Command="{Binding NextDayCommand}" Margin="0,0,12,0">
+                        <TextBlock Text="التالي ▶" FontSize="12.5"/>
+                    </Button>
+
+                    <Border Background="#F1F5F9" CornerRadius="6" Padding="10,6">
+                        <TextBlock Text="{Binding SelectedDateFormatted}" FontSize="13" FontWeight="SemiBold" Foreground="#334155"/>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- KPI Summary Cards -->
+            <Grid Grid.Column="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Total Card -->
+                <Border Grid.Column="0" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="10" Padding="12,8">
+                    <StackPanel>
+                        <TextBlock Text="إجمالي اليوم" FontSize="11.5" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding TotalTodayCount}" FontSize="20" FontWeight="Bold" Foreground="#0284C7"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Confirmed Card -->
+                <Border Grid.Column="2" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="10" Padding="12,8">
+                    <StackPanel>
+                        <TextBlock Text="مؤكد" FontSize="11.5" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding ConfirmedCount}" FontSize="20" FontWeight="Bold" Foreground="#0284C7"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- In Progress Card -->
+                <Border Grid.Column="4" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="10" Padding="12,8">
+                    <StackPanel>
+                        <TextBlock Text="قيد الصيانة" FontSize="11.5" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding InProgressCount}" FontSize="20" FontWeight="Bold" Foreground="#2563EB"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Completed Card -->
+                <Border Grid.Column="6" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="10" Padding="12,8">
+                    <StackPanel>
+                        <TextBlock Text="مكتمل" FontSize="11.5" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                        <TextBlock Text="{Binding CompletedCount}" FontSize="20" FontWeight="Bold" Foreground="#059669"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- 3. Search and Status Filter Bar -->
+        <Border Grid.Row="2" Margin="0,0,0,12" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="10" Padding="14,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search Input with Clean ClearType Watermark & Separate Icon -->
+                <Grid Grid.Column="0">
+                    <TextBox x:Name="SearchBox" Height="38" FontSize="13.5" VerticalContentAlignment="Center"
+                             Padding="36,0,32,0"
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <!-- Search Icon on Leading Edge (RTL Right) -->
+                    <TextBlock Text="🔍" FontSize="13.5" Foreground="#64748B" IsHitTestVisible="False"
+                               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0,0,0"/>
+
+                    <!-- Crisp, High-Contrast Watermark (Automatically disappears on focus or typing) -->
+                    <TextBlock Text="ابحث برقم الحجز، العميل، الهاتف، أو اللوحة..."
+                               IsHitTestVisible="False" FontSize="13" Foreground="#64748B"
+                               TextTrimming="CharacterEllipsis"
+                               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="36,0,36,0">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Text, ElementName=SearchBox}" Value=""/>
+                                            <Condition Binding="{Binding IsFocused, ElementName=SearchBox}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding Text, ElementName=SearchBox}" Value="{x:Null}"/>
+                                            <Condition Binding="{Binding IsFocused, ElementName=SearchBox}" Value="False"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <!-- Quick Clear Button (✕) on Trailing Edge (RTL Left) -->
+                    <Button Content="✕" Width="22" Height="22" Background="#E2E8F0" BorderThickness="0"
+                            Foreground="#475569" FontWeight="Bold" FontSize="11" Cursor="Hand"
+                            HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,0"
+                            ToolTip="مسح نص البحث"
+                            Command="{Binding ClearSearchCommand}">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="11">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#CBD5E1"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+
+                <!-- Status Filter -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="الحالة:" FontSize="13" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                    <ComboBox Height="38" Width="160" FontSize="13" VerticalContentAlignment="Center"
+                              SelectedValue="{Binding SelectedStatusFilter, Mode=TwoWay}"
+                              SelectedValuePath="Content">
+                        <ComboBoxItem Content="الكل" IsSelected="True"/>
+                        <ComboBoxItem Content="قيد الانتظار"/>
+                        <ComboBoxItem Content="مؤكد"/>
+                        <ComboBoxItem Content="قيد الصيانة"/>
+                        <ComboBoxItem Content="مكتمل"/>
+                        <ComboBoxItem Content="ملغي"/>
+                        <ComboBoxItem Content="لم يحضر"/>
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 4. DataGrid of Appointments -->
+        <Border Grid.Row="3" Background="{DynamicResource CardBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="10">
+            <DataGrid ItemsSource="{Binding FilteredAppointments}"
+                      SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="True"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="Horizontal"
+                      HorizontalGridLinesBrush="#F1F5F9"
+                      RowHeight="44"
+                      ColumnHeaderHeight="42"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      FontSize="13">
+
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#F8FAFC"/>
+                        <Setter Property="Foreground" Value="#475569"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Padding" Value="12,0"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="#E2E8F0"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F8FAFC"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#E0F2FE"/>
+                                <Setter Property="Foreground" Value="#0F172A"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
+                <DataGrid.Columns>
+                    <!-- رقم الموعد -->
+                    <DataGridTextColumn Header="رقم الحجز" Binding="{Binding AppointmentNumber}" Width="110">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- التوقيت -->
+                    <DataGridTextColumn Header="التوقيت" Binding="{Binding TimeRangeFormatted}" Width="110">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Foreground" Value="#0284C7"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- العميل -->
+                    <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="150">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- الهاتف -->
+                    <DataGridTextColumn Header="رقم الهاتف" Binding="{Binding CustomerPhone}" Width="120">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- لوحة السيارة -->
+                    <DataGridTextColumn Header="رقم اللوحة" Binding="{Binding PlateNumber}" Width="110">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- نوع السيارة -->
+                    <DataGridTextColumn Header="السيارة" Binding="{Binding CarModel}" Width="140">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- الفني المسند -->
+                    <DataGridTextColumn Header="الفني المسند" Binding="{Binding TechnicianName}" Width="130">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- الحالة كـ Badge -->
+                    <DataGridTemplateColumn Header="الحالة" Width="105">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="6" Padding="8,4" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                        Background="{Binding StatusBadgeBgColor}">
+                                    <TextBlock Text="{Binding StatusArabic}" FontWeight="Bold" FontSize="11.5"
+                                               Foreground="{Binding StatusBadgeColor}"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!-- كرت الصيانة المربوط -->
+                    <DataGridTextColumn Header="كرت الصيانة" Binding="{Binding RepairOrderNumber}" Width="105">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="#059669"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- ملاحظات الحجز -->
+                    <DataGridTextColumn Header="الملاحظات" Binding="{Binding Notes}" Width="*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Padding" Value="10,0"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <!-- الإجراءات -->
+                    <DataGridTemplateColumn Header="الإجراءات" Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <!-- تحويل لكرت صيانة -->
+                                    <Button Width="85" Height="28" Margin="0,0,6,0"
+                                            IsEnabled="{Binding CanConvertToOrder}"
+                                            Command="{Binding DataContext.ConvertToOrderCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}"
+                                            Cursor="Hand">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#E0F2FE"/>
+                                                <Setter Property="Foreground" Value="#0284C7"/>
+                                                <Setter Property="BorderThickness" Value="0"/>
+                                                <Setter Property="FontSize" Value="11.5"/>
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="6">
+                                                                <TextBlock Text="تحويل لكرت" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#BAE6FD"/></Trigger>
+                                                                <Trigger Property="IsEnabled" Value="False">
+                                                                    <Setter TargetName="bd" Property="Background" Value="#F1F5F9"/>
+                                                                    <Setter Property="Foreground" Value="#CBD5E1"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                    <!-- إلغاء الموعد -->
+                                    <Button Width="55" Height="28"
+                                            IsEnabled="{Binding CanCancel}"
+                                            Command="{Binding DataContext.CancelAppointmentCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                            CommandParameter="{Binding}"
+                                            Cursor="Hand">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Background" Value="#FEE2E2"/>
+                                                <Setter Property="Foreground" Value="#DC2626"/>
+                                                <Setter Property="BorderThickness" Value="0"/>
+                                                <Setter Property="FontSize" Value="11.5"/>
+                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="6">
+                                                                <TextBlock Text="إلغاء" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#FECACA"/></Trigger>
+                                                                <Trigger Property="IsEnabled" Value="False">
+                                                                    <Setter TargetName="bd" Property="Background" Value="#F1F5F9"/>
+                                                                    <Setter Property="Foreground" Value="#CBD5E1"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

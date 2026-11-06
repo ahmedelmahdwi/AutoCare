@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net481</TargetFramework>
+    <RootNamespace>AutoCare.Tests</RootNamespace>
+    <AssemblyName>AutoCare.Tests</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoCare.Domain\AutoCare.Domain.csproj" />
+    <ProjectReference Include="..\AutoCare.Application\AutoCare.Application.csproj" />
+    <ProjectReference Include="..\AutoCare.Infrastructure\AutoCare.Infrastructure.csproj" />
+    <ProjectReference Include="..\WPF_AutoCare\AutoCare.WPF.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,24 @@
+# نواتج البناء والملفات التنفيذية لجميع المشاريع
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.log
+
+# إعدادات المحررات
+.vs/
+.vscode/
+
+# سكربتات وملفات PowerShell
+build_clean_solution.ps1
+check_db.ps1
+package_release.ps1
+scratch_test.ps1
+test_diag.ps1
+test_enc.ps1
+test_interactive_ui.ps1
+test_pass.ps1
+update_all_zips.ps1
+docs/
+WPF_AutoCare/SQL_Scripts/

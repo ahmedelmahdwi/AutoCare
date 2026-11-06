@@ -1,0 +1,160 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{Binding DialogTitle}" Width="920" Height="740"
+        WindowStartupLocation="CenterOwner" ResizeMode="CanResizeWithGrip"
+        FlowDirection="RightToLeft"
+        FontFamily="Segoe UI, Tahoma, Arial"
+        Background="{DynamicResource BackgroundBrush}">
+
+    <Window.Resources>
+        <Style x:Key="DialogBtnStyle" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#38BDF8"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#0369A1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="{Binding DialogTitle}" FontSize="20" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,14"/>
+
+        <!-- Tabs -->
+        <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0">
+            <!-- Services Tab -->
+            <TabItem Header="🔧  أجور وخدمات الصيانة" FontSize="14" FontWeight="SemiBold">
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Add Service Toolbar -->
+                    <Border Grid.Row="0" Background="#F8FAFC" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="8" Padding="10" Margin="0,0,0,10">
+                        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="القسم:" FontSize="13" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#475569"/>
+                            <ComboBox ItemsSource="{Binding ServiceCategories}" SelectedItem="{Binding SelectedServiceCategory}" Width="120" Height="34" FontSize="13" Margin="0,0,10,0"/>
+
+                            <TextBlock Text="الخدمة:" FontSize="13" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#475569"/>
+                            <ComboBox ItemsSource="{Binding AvailableServices}" DisplayMemberPath="ServiceName" SelectedItem="{Binding SelectedServiceItem}" Width="210" Height="34" FontSize="13" Margin="0,0,10,0"/>
+
+                            <TextBlock Text="الفني:" FontSize="13" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#475569"/>
+                            <ComboBox ItemsSource="{Binding AvailableTechnicians}" DisplayMemberPath="FullName" SelectedItem="{Binding SelectedTechnician}" Width="150" Height="34" FontSize="13" Margin="0,0,10,0"/>
+
+                            <Button Content="➕ إضافة" Command="{Binding AddServiceCommand}" Style="{StaticResource DialogBtnStyle}" Width="90" Height="34" Margin="0,0,8,0"/>
+                            <Button Content="🗑️ حذف" Command="{Binding DeleteServiceCommand}" Style="{StaticResource DialogBtnStyle}" Background="#EF4444" Width="90" Height="34"/>
+                        </WrapPanel>
+                    </Border>
+
+                    <!-- Services DataGrid -->
+                    <Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="10">
+                        <DataGrid ItemsSource="{Binding ServiceRows}" SelectedItem="{Binding SelectedServiceRow}" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="40" Background="Transparent" BorderThickness="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="اسم الخدمة" Binding="{Binding ServiceName}" Width="*"/>
+                                <DataGridTextColumn Header="اسم الفني" Binding="{Binding TechnicianName}" Width="180"/>
+                                <DataGridTextColumn Header="نسبة العمولة (%)" Binding="{Binding Commission}" Width="120"/>
+                                <DataGridTextColumn Header="السعر (د.ل)" Binding="{Binding UnitPrice}" Width="140"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- Parts Tab -->
+            <TabItem Header="⚙️  قطع الغيار المصروفة" FontSize="14" FontWeight="SemiBold">
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Add Part Toolbar -->
+                    <Border Grid.Row="0" Background="#F8FAFC" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="8" Padding="10" Margin="0,0,0,10">
+                        <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="القسم:" FontSize="13" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#475569"/>
+                            <ComboBox ItemsSource="{Binding PartCategories}" SelectedItem="{Binding SelectedPartCategory}" Width="130" Height="34" FontSize="13" Margin="0,0,10,0"/>
+
+                            <TextBlock Text="القطعة:" FontSize="13" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#475569"/>
+                            <ComboBox ItemsSource="{Binding AvailableParts}" DisplayMemberPath="PartName" SelectedItem="{Binding SelectedPartItem}" Width="240" Height="34" FontSize="13" Margin="0,0,10,0"/>
+
+                            <TextBlock Text="الكمية:" FontSize="13" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#475569"/>
+                            <TextBox Text="{Binding EnteredPartQuantity, UpdateSourceTrigger=PropertyChanged}" Width="55" Height="34" FontSize="13.5" VerticalContentAlignment="Center" TextAlignment="Center" Margin="0,0,10,0"/>
+
+                            <Button Content="➕ صرف القطعة" Command="{Binding AddPartCommand}" Style="{StaticResource DialogBtnStyle}" Background="#10B981" Width="125" Height="34" Margin="0,0,8,0"/>
+                            <Button Content="🗑️ حذف" Command="{Binding DeletePartCommand}" Style="{StaticResource DialogBtnStyle}" Background="#EF4444" Width="90" Height="34"/>
+                        </WrapPanel>
+                    </Border>
+
+                    <!-- Parts DataGrid -->
+                    <Border Grid.Row="1" Background="#FFFFFF" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="10">
+                        <DataGrid ItemsSource="{Binding PartRows}" SelectedItem="{Binding SelectedPartRow}" AutoGenerateColumns="False" IsReadOnly="True" RowHeight="40" Background="Transparent" BorderThickness="0">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="كود القطعة" Binding="{Binding PartCode}" Width="140"/>
+                                <DataGridTextColumn Header="اسم القطعة" Binding="{Binding PartName}" Width="*"/>
+                                <DataGridTextColumn Header="الكمية" Binding="{Binding Quantity}" Width="100"/>
+                                <DataGridTextColumn Header="سعر الوحدة (د.ل)" Binding="{Binding UnitPrice}" Width="140"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Totals & Actions Footer -->
+        <Border Grid.Row="2" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Padding="0,14,0,0" Margin="0,12,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Totals -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="إجمالي الخدمات: " FontSize="13" Foreground="#64748B"/>
+                    <TextBlock Text="{Binding TotalServices, StringFormat='{}{0:N2} د.ل'}" FontSize="13.5" FontWeight="Bold" Foreground="#0284C7" Margin="0,0,12,0"/>
+
+                    <TextBlock Text="إجمالي القطع: " FontSize="13" Foreground="#64748B"/>
+                    <TextBlock Text="{Binding TotalParts, StringFormat='{}{0:N2} د.ل'}" FontSize="13.5" FontWeight="Bold" Foreground="#10B981" Margin="0,0,12,0"/>
+
+                    <TextBlock Text="الإجمالي الكلي: " FontSize="14" FontWeight="Bold" Foreground="#0F172A"/>
+                    <TextBlock Text="{Binding GrandTotal, StringFormat='{}{0:N2} د.ل'}" FontSize="15" FontWeight="Bold" Foreground="#059669"/>
+                </StackPanel>
+
+                <!-- Buttons -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button Content="💾  حفظ وبدء الصيانة" Command="{Binding SaveAndFinishCommand}" Style="{StaticResource BtnDialogSave}"/>
+                    <Button Content="🔄  إعادة للمعلق" Command="{Binding RevertToPendingCommand}" Style="{StaticResource BtnDialogWarning}" Margin="12,0,0,0"/>
+                    <Button Content="✕  إغلاق" Command="{Binding CloseCommand}" IsCancel="True" Style="{StaticResource BtnDialogClose}" Margin="12,0,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

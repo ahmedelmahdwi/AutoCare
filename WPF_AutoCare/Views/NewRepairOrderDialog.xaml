@@ -1,0 +1,135 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="فتح كرت صيانة جديد" Width="680" Height="720"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        FlowDirection="RightToLeft"
+        FontFamily="Segoe UI, Tahoma, Arial"
+        Background="{DynamicResource BackgroundBrush}">
+
+    <Window.Resources>
+        <Style x:Key="DialogInputStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="Margin" Value="0,4,0,12"/>
+        </Style>
+
+        <Style x:Key="DialogComboStyle" TargetType="ComboBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="Margin" Value="0,4,0,12"/>
+        </Style>
+
+        <Style x:Key="SaveBtnStyle" TargetType="Button">
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="24,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#38BDF8"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#0369A1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0" Text="فتح كرت صيانة واستقبال مركبة" FontSize="22" FontWeight="Bold" FontFamily="{StaticResource HeaderFontFamily}" Foreground="#0F172A" Margin="0,0,0,16"/>
+
+        <!-- Form Fields ScrollViewer -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="0,0,8,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Customer Phone & Name -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="رقم جوال العميل (10 أرقام):" FontSize="13" Foreground="#475569"/>
+                        <TextBox Text="{Binding CustomerPhone, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DialogInputStyle}"/>
+
+                        <TextBlock Text="اسم العميل:" FontSize="13" Foreground="#475569"/>
+                        <TextBox Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DialogInputStyle}"/>
+                    </StackPanel>
+
+                    <!-- Vehicle Plate & VIN -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="رقم اللوحة (7 أرقام):" FontSize="13" Foreground="#475569"/>
+                        <TextBox Text="{Binding PlateNumber, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DialogInputStyle}"/>
+
+                        <TextBlock Text="رقم الهيكل VIN (17 خانة):" FontSize="13" Foreground="#475569"/>
+                        <TextBox Text="{Binding Vin, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DialogInputStyle}"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="نوع المركبة:" FontSize="13" Foreground="#475569"/>
+                        <TextBox Text="{Binding CarName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DialogInputStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="سنة الصنع / الموديل:" FontSize="13" Foreground="#475569"/>
+                        <TextBox Text="{Binding CarModel, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DialogInputStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="4">
+                        <TextBlock Text="قراءة العداد (كم):" FontSize="13" Foreground="#475569"/>
+                        <TextBox Text="{Binding Mileage, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DialogInputStyle}"/>
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock Text="مستوى الوقود:" FontSize="13" Foreground="#475569"/>
+                <ComboBox ItemsSource="{Binding FuelLevels}" SelectedItem="{Binding FuelLevel}" Style="{StaticResource DialogComboStyle}"/>
+
+                <TextBlock Text="شكوى العميل / العطل المشتكى منه:" FontSize="13" Foreground="#475569"/>
+                <TextBox Text="{Binding Complaint, UpdateSourceTrigger=PropertyChanged}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="8" Margin="0,4,0,12"/>
+
+                <TextBlock Text="ملاحظات المعاينة الأولية:" FontSize="13" Foreground="#475569"/>
+                <TextBox Text="{Binding InspectionNotes, UpdateSourceTrigger=PropertyChanged}" Height="60" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" Padding="8" Margin="0,4,0,12"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Actions Footer -->
+        <Border Grid.Row="2" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Padding="0,16,0,0" Margin="0,14,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="{Binding SaveButtonTitle}" Command="{Binding SaveCommand}" Style="{StaticResource BtnDialogSave}"/>
+                <Button Content="✕  إلغاء" Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource BtnDialogCancel}" Margin="12,0,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

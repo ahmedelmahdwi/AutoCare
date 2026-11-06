@@ -1,0 +1,225 @@
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FlowDirection="RightToLeft"
+             FontFamily="Segoe UI, Tahoma, Arial"
+             Background="{DynamicResource BackgroundBrush}">
+
+    <UserControl.Resources>
+        <!-- Primary Blue Button -->
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#38BDF8"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#0369A1"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Success Emerald Button -->
+        <Style x:Key="BtnSuccess" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#10B981"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="14,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#34D399"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#059669"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Filter Button -->
+        <Style x:Key="BtnFilter" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0EA5E9"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#38BDF8"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#0284C7"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Secondary Outline Button -->
+        <Style x:Key="BtnSecondary" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#334155"/>
+            <Setter Property="Background" Value="#F1F5F9"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#E2E8F0"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#CBD5E1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Row -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="2,0,2,12">
+            <TextBlock Text="تسوية العمولات" FontSize="24" FontWeight="Bold" FontFamily="{StaticResource HeaderFontFamily}" Foreground="#0F172A"/>
+        </StackPanel>
+
+        <!-- Modern Non-Colliding Responsive Toolbar -->
+        <Border Grid.Row="1" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="10" Padding="12,8" Margin="0,0,0,4">
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <!-- اختيار الفني -->
+                <StackPanel Orientation="Horizontal" Margin="0,4,14,4">
+                    <TextBlock Text="الفني:" FontSize="13.5" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#334155" FontWeight="SemiBold"/>
+                    <ComboBox Width="160" Height="36" FontSize="13" VerticalContentAlignment="Center"
+                              ItemsSource="{Binding Technicians}" DisplayMemberPath="FullName"
+                              SelectedValuePath="TechnicianId"
+                              SelectedValue="{Binding SelectedTechnicianId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!-- اختيار الحالة -->
+                <StackPanel Orientation="Horizontal" Margin="0,4,14,4">
+                    <TextBlock Text="الحالة:" FontSize="13.5" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#334155" FontWeight="SemiBold"/>
+                    <ComboBox Width="115" Height="36" FontSize="13" VerticalContentAlignment="Center"
+                              ItemsSource="{Binding StatusList}"
+                              SelectedItem="{Binding SelectedStatus, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!-- من تاريخ -->
+                <StackPanel Orientation="Horizontal" Margin="0,4,14,4">
+                    <TextBlock Text="من:" FontSize="13.5" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#334155" FontWeight="SemiBold"/>
+                    <DatePicker Width="125" Height="36" VerticalContentAlignment="Center"
+                                SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!-- إلى تاريخ -->
+                <StackPanel Orientation="Horizontal" Margin="0,4,14,4">
+                    <TextBlock Text="إلى:" FontSize="13.5" VerticalAlignment="Center" Margin="0,0,6,0" Foreground="#334155" FontWeight="SemiBold"/>
+                    <DatePicker Width="125" Height="36" VerticalContentAlignment="Center"
+                                SelectedDate="{Binding EndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <!-- زر عرض المعلق فقط السريع -->
+                <StackPanel Orientation="Horizontal" Margin="0,4,14,4">
+                    <Button Content="⚡ المعلق فقط" Command="{Binding ShowPendingCommand}" Width="120" Height="36"
+                            Style="{StaticResource BtnSecondary}"/>
+                </StackPanel>
+
+                <!-- أزرار الإجراءات والتسوية -->
+                <StackPanel Orientation="Horizontal" Margin="0,4,0,4" Visibility="{Binding SettlementButtonsVisibility}">
+                    <Button Content="تسوية المحدد" Command="{Binding SettleSelectedCommand}" Width="125" Height="36"
+                            Style="{StaticResource BtnPrimary}" Margin="0,0,6,0"/>
+                    <Button Content="تسوية الكل" Command="{Binding SettleAllCommand}" Width="110" Height="36"
+                            Style="{StaticResource BtnSuccess}"/>
+                </StackPanel>
+            </WrapPanel>
+        </Border>
+
+        <!-- DataGrid in White Rounded Border -->
+        <Border Grid.Row="2" Background="#FFFFFF" BorderBrush="#E3EAF1" BorderThickness="1" CornerRadius="12" Margin="0,12,0,0" Padding="1">
+            <DataGrid ItemsSource="{Binding Rows}" SelectedItem="{Binding SelectedRow}"
+                      AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                      GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0"
+                      RowHeight="42" FontSize="13.5" SelectionMode="Single"
+                      BorderThickness="0" Background="Transparent">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="رقم الفني" Binding="{Binding TechId}" Width="95"/>
+                    <DataGridTextColumn Header="اسم الفني" Binding="{Binding TechName}" Width="170"/>
+                    <DataGridTextColumn Header="رقم أمر الإصلاح" Binding="{Binding RoNumber}" Width="140"/>
+                    <DataGridTextColumn Header="تاريخ الإكمال" Binding="{Binding CompletionDate}" Width="130"/>
+                    <DataGridTextColumn Header="إجمالي الخدمات (د.ل)" Binding="{Binding ServiceTotal}" Width="140"/>
+                    <DataGridTextColumn Header="نسبة العمولة" Binding="{Binding CommissionRate}" Width="110"/>
+                    <DataGridTextColumn Header="قيمة العمولة (د.ل)" Binding="{Binding CommissionAmount}" Width="135"/>
+                    <DataGridTemplateColumn Header="الحالة" Width="105">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="6" Padding="8,3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="#FEF3C7"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="مسوى">
+                                                    <Setter Property="Background" Value="#D1FAE5"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock Text="{Binding Status}" FontWeight="SemiBold" FontSize="12.5">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="#D97706"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Status}" Value="مسوى">
+                                                        <Setter Property="Foreground" Value="#059669"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

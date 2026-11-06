@@ -1,0 +1,107 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FlowDirection="RightToLeft"
+             FontFamily="Segoe UI, Tahoma, Arial"
+             Background="{DynamicResource BackgroundBrush}">
+
+    <UserControl.Resources>
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="18,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#38BDF8"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#0369A1"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnDanger" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="#EF4444"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#F87171"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#DC2626"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header Title Bar -->
+        <TextBlock Grid.Row="0" Text="النسخ الاحتياطي والاستعادة" FontSize="24" FontWeight="Bold" FontFamily="{StaticResource HeaderFontFamily}" Foreground="#0F172A"/>
+
+        <!-- Database Name Info -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,6,0,0">
+            <TextBlock Text="قاعدة البيانات: " FontSize="14" Foreground="#64748B"/>
+            <TextBlock Text="{Binding DatabaseName}" FontSize="14" FontWeight="Bold" Foreground="#0284C7"/>
+        </StackPanel>
+
+        <!-- Panels Grid: 2 Side-by-Side Cards -->
+        <Grid Grid.Row="2" Margin="0,14,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="24"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Card 1: Backup Panel (Right / Column 0) -->
+            <Border Grid.Column="0" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="📁 إنشاء نسخة احتياطية (Backup)" FontSize="17" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,12"/>
+                    <TextBlock Text="مسار حفظ النسخة الاحتياطية:" FontSize="13" Foreground="#475569" Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding BackupPath, UpdateSourceTrigger=PropertyChanged}" Height="38" FontSize="13.5" VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,14"/>
+
+                    <Button Content="💾 بدء النسخ الاحتياطي" Style="{StaticResource BtnPrimary}" Command="{Binding StartBackupCommand}" HorizontalAlignment="Left" Margin="0,0,0,14"/>
+
+                    <ProgressBar Value="{Binding BackupProgress}" Height="8" Margin="0,0,0,8" Foreground="#0284C7" Background="#E2E8F0"/>
+                    <TextBlock Text="{Binding BackupStatus}" FontSize="12.5" Foreground="#64748B" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Card 2: Restore Panel (Left / Column 2) -->
+            <Border Grid.Column="2" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="12" Padding="20">
+                <StackPanel>
+                    <TextBlock Text="🔄 استعادة نسخة احتياطية (Restore)" FontSize="17" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,12"/>
+                    <TextBlock Text="مسار ملف النسخة (.bak):" FontSize="13" Foreground="#475569" Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding RestorePath, UpdateSourceTrigger=PropertyChanged}" Height="38" FontSize="13.5" VerticalContentAlignment="Center" Padding="10,0" Margin="0,0,0,14"/>
+
+                    <Button Content="⚠️ بدء الاستعادة" Style="{StaticResource BtnDanger}" Command="{Binding StartRestoreCommand}" HorizontalAlignment="Left" Margin="0,0,0,14"/>
+
+                    <ProgressBar Value="{Binding RestoreProgress}" Height="8" Margin="0,0,0,8" Foreground="#EF4444" Background="#E2E8F0"/>
+                    <TextBlock Text="{Binding RestoreStatus}" FontSize="12.5" Foreground="#64748B" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Hint Footer -->
+        <TextBlock Grid.Row="3" Text="ملاحظة: يتطلب النسخ الاحتياطي صلاحية كتابة على مجلد الحفظ من حساب خدمة SQL Server." FontSize="13" Foreground="#64748B" Margin="0,14,0,0"/>
+    </Grid>
+</UserControl>

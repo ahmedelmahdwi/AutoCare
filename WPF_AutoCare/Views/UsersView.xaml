@@ -1,0 +1,120 @@
+<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FlowDirection="RightToLeft"
+             FontFamily="Segoe UI, Tahoma, Arial"
+             Background="{DynamicResource BackgroundBrush}">
+
+    <UserControl.Resources>
+        <Style x:Key="BtnPrimary" TargetType="Button">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#38BDF8"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#0369A1"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnSuccess" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="#10B981"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#34D399"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#059669"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BtnDanger" TargetType="Button" BasedOn="{StaticResource BtnPrimary}">
+            <Setter Property="Background" Value="#EF4444"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Background" Value="#F87171"/></Trigger>
+                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Background" Value="#DC2626"/></Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Row -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="2,0,2,12">
+            <TextBlock Text="إدارة المستخدمين" FontSize="24" FontWeight="Bold" FontFamily="{StaticResource HeaderFontFamily}" Foreground="#0F172A"/>
+        </StackPanel>
+
+        <!-- Toolbar (Exact duplicate of UsersScreen toolbar) -->
+        <DockPanel Grid.Row="1" Margin="0,0,0,2">
+            <!-- Search on Right -->
+            <TextBox DockPanel.Dock="Right" Width="240" Height="38" FontSize="13.5" VerticalContentAlignment="Center"
+                     Padding="10,0" Margin="0,0,0,0"
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <!-- Filter Combo on Right -->
+            <ComboBox DockPanel.Dock="Right" Width="170" Height="38" FontSize="13.5" Margin="10,0,10,0"
+                      SelectedValuePath="Content" SelectedValue="{Binding SelectedRoleFilter}">
+                <ComboBoxItem Content="الكل" IsSelected="True"/>
+                <ComboBoxItem Content="مدير النظام"/>
+                <ComboBoxItem Content="موظف استقبال"/>
+                <ComboBoxItem Content="محاسب"/>
+            </ComboBox>
+
+            <!-- Action Buttons on Left -->
+            <Button DockPanel.Dock="Left" Content="+ إضافة مستخدم" Command="{Binding AddUserCommand}" Width="140" Style="{StaticResource BtnSuccess}" Margin="0,0,0,0"/>
+            <Button DockPanel.Dock="Left" Content="تعديل المستخدم" Command="{Binding EditUserCommand}" Width="130" Style="{StaticResource BtnPrimary}" Margin="10,0,0,0"/>
+            <Button DockPanel.Dock="Left" Content="حذف" Command="{Binding DeleteUserCommand}" Width="90" Style="{StaticResource BtnDanger}" Margin="10,0,0,0"/>
+        </DockPanel>
+
+        <!-- DataGrid in White Rounded Border (Exact duplicate of UsersScreen grid) -->
+        <Border Grid.Row="2" Background="#FFFFFF" BorderBrush="#E3EAF1" BorderThickness="1" CornerRadius="12" Margin="0,12,0,0" Padding="1">
+            <DataGrid ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}"
+                      AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False"
+                      GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0"
+                      RowHeight="42" FontSize="13.5" SelectionMode="Single"
+                      BorderThickness="0" Background="Transparent">
+                <DataGrid.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditUserCommand}"/>
+                </DataGrid.InputBindings>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="اسم المستخدم" Binding="{Binding Username}" Width="180"/>
+                    <DataGridTextColumn Header="اسم الموظف" Binding="{Binding FullName}" Width="240"/>
+                    <DataGridTextColumn Header="الوظيفة" Binding="{Binding RoleDisplay}" Width="160"/>
+                    <DataGridTextColumn Header="حالة الحساب" Binding="{Binding StatusDisplay}" Width="130"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</UserControl>

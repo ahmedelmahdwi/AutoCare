@@ -1,0 +1,139 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="إضافة / تعديل قطعة غيار"
+        Width="580" Height="640" MinWidth="520" MinHeight="580"
+        WindowStartupLocation="CenterOwner"
+        FlowDirection="RightToLeft"
+        FontFamily="Segoe UI, Tahoma, Arial"
+        Background="{DynamicResource BackgroundBrush}">
+
+    <Window.Resources>
+        <Style x:Key="FormInputStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="MinHeight" Value="42"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="Padding" Value="12,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#F8FAFC"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8" SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"
+                                          VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#0284C7"/>
+                                <Setter TargetName="border" Property="Background" Value="#FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DialogBtnStyle" TargetType="Button">
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="24,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#38BDF8"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#0369A1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border Background="#FFFFFF" BorderBrush="#CBD5E1" BorderThickness="1" CornerRadius="12" Margin="16" Padding="24">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Title -->
+            <TextBlock Grid.Row="0" Text="بيانات قطعة الغيار" FontSize="20" FontWeight="Bold" FontFamily="{StaticResource HeaderFontFamily}" Foreground="#0F172A" Margin="0,0,0,16"/>
+
+            <!-- Form Fields Scrollable Area -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,6,0">
+                <StackPanel>
+                    <TextBlock Text="رمز القطعة (Part Code):" FontSize="13" Foreground="#475569" Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding PartCode, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormInputStyle}" Margin="0,0,0,12"/>
+
+                    <TextBlock Text="اسم وتوصيف القطعة:" FontSize="13" Foreground="#475569" Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding PartName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormInputStyle}" Margin="0,0,0,12"/>
+
+                    <TextBlock Text="التصنيف:" FontSize="13" Foreground="#475569" Margin="0,0,0,4"/>
+                    <TextBox Text="{Binding Category, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormInputStyle}" Margin="0,0,0,12"/>
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="14"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="الكمية الابتدائية:" FontSize="13" Foreground="#475569" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormInputStyle}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="حد الطلب الأدنى:" FontSize="13" Foreground="#475569" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding MinStockLevel, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormInputStyle}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="14"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="سعر الشراء (د.ل):" FontSize="13" Foreground="#475569" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding CostPrice, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormInputStyle}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="سعر البيع (د.ل):" FontSize="13" Foreground="#475569" Margin="0,0,0,4"/>
+                            <TextBox Text="{Binding SellingPrice, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FormInputStyle}"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Bottom Actions Footer -->
+            <Border Grid.Row="2" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Padding="0,16,0,0" Margin="0,14,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Content="💾  حفظ في المخزون" Style="{StaticResource BtnDialogSave}" 
+                            Command="{Binding SaveCommand}"/>
+                    <Button Content="✕  إلغاء" Style="{StaticResource BtnDialogCancel}" 
+                            Command="{Binding CancelCommand}" IsCancel="True" Margin="12,0,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,507 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="{Binding ActiveScreenTitle, FallbackValue='نظام أوتو كير - الإدارة الرئيسية'}"
+        Width="1400" Height="860" MinWidth="1100" MinHeight="700"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        FlowDirection="RightToLeft"
+        FontFamily="Segoe UI, Tahoma, Arial"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        Background="{DynamicResource BackgroundBrush}">
+    
+    <Window.Resources>
+        <!-- Standard Sidebar Navigation Button Style with Vibrant Liquid Glass Active State -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="46"/>
+            <Setter Property="Margin" Value="10,3,10,3"/>
+            <Setter Property="Foreground" Value="#BAE6FD"/>
+            <Setter Property="Background" Value="#0B2032"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#1E3A5F"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="16,0,16,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10" SnapsToDevicePixels="True">
+                            <Grid>
+                                <!-- Active Glass Luminous Indicator Strip (Right side in RTL) -->
+                                <Border x:Name="activeIndicator" Width="4" HorizontalAlignment="Right"
+                                        CornerRadius="2" Margin="4,7,0,7" Visibility="Collapsed">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#7DD3FC" Offset="0.0"/>
+                                            <GradientStop Color="#38BDF8" Offset="0.5"/>
+                                            <GradientStop Color="#0284C7" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#38BDF8" BlurRadius="8" ShadowDepth="0" Opacity="0.9"/>
+                                    </Border.Effect>
+                                </Border>
+
+                                <!-- Specular Crystal Glass Gloss Highlight -->
+                                <Border x:Name="glassGloss" VerticalAlignment="Top" Height="20" CornerRadius="9,9,0,0"
+                                        Opacity="0" Visibility="Collapsed">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#35FFFFFF" Offset="0.0"/>
+                                            <GradientStop Color="#00FFFFFF" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+
+                                <ContentPresenter VerticalAlignment="Center" 
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  Margin="{TemplateBinding Padding}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#153E65"/>
+                                <Setter TargetName="bd" Property="BorderBrush" Value="#38BDF8"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                            <!-- Vibrant Liquid Crystal Glass Active State (Boolean Tag) -->
+                            <Trigger Property="Tag">
+                                <Trigger.Value>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </Trigger.Value>
+                                <Setter TargetName="activeIndicator" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="glassGloss" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="glassGloss" Property="Opacity" Value="1"/>
+                                <Setter TargetName="bd" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="#0284C7" Offset="0.0"/>
+                                            <GradientStop Color="#0369A1" Offset="0.6"/>
+                                            <GradientStop Color="#075985" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="bd" Property="BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#C038BDF8" Offset="0.0"/>
+                                            <GradientStop Color="#600284C7" Offset="0.5"/>
+                                            <GradientStop Color="#4038BDF8" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="bd" Property="BorderThickness" Value="1.5"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter TargetName="bd" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#38BDF8" Direction="270" ShadowDepth="2" BlurRadius="16" Opacity="0.55"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <!-- String "True" Fallback Trigger -->
+                            <Trigger Property="Tag" Value="True">
+                                <Setter TargetName="activeIndicator" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="glassGloss" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="glassGloss" Property="Opacity" Value="1"/>
+                                <Setter TargetName="bd" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="#0284C7" Offset="0.0"/>
+                                            <GradientStop Color="#0369A1" Offset="0.6"/>
+                                            <GradientStop Color="#075985" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="bd" Property="BorderBrush">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                            <GradientStop Color="#C038BDF8" Offset="0.0"/>
+                                            <GradientStop Color="#600284C7" Offset="0.5"/>
+                                            <GradientStop Color="#4038BDF8" Offset="1.0"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="bd" Property="BorderThickness" Value="1.5"/>
+                                <Setter Property="Foreground" Value="#FFFFFF"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter TargetName="bd" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#38BDF8" Direction="270" ShadowDepth="2" BlurRadius="16" Opacity="0.55"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="260"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ── Left Sidebar (Oceanic Dark Glass) ── -->
+        <Border Grid.Column="0" Background="#071724" BorderBrush="#1E3A5F" BorderThickness="0,0,1,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+
+                <!-- Brand / Logo Header -->
+                <Border Grid.Row="0" Background="#0A1E30" BorderBrush="#1E3A5F" BorderThickness="0,0,0,1" Padding="16,0">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="نظام أوتو كير" FontSize="20" FontWeight="Bold" FontFamily="{StaticResource HeaderFontFamily}" Foreground="#38BDF8"/>
+                        <TextBlock Text="إدارة مراكز الصيانة والورش" FontSize="11" Foreground="#94A3B8" Margin="0,3,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Navigation Links ScrollViewer -->
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="0,10,0,10">
+                        <Button Content="📊  لوحة التحكم الرئيسية" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="لوحة التحكم" Tag="{Binding IsDashboardActive}"/>
+                        <Button Content="📅  المواعيد والحجوزات" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="المواعيد" Tag="{Binding IsAppointmentsActive}" Visibility="{Binding AppointmentsNavVisibility}"/>
+                        <Button Content="🚗  كروت الصيانة وأوامر الشغل" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="كروت الصيانة" Tag="{Binding IsCarStatusActive}" Visibility="{Binding CarStatusNavVisibility}"/>
+                        <Button Content="👥  العملاء والمركبات" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="العملاء والمركبات" Tag="{Binding IsCustomersActive}" Visibility="{Binding CustomersNavVisibility}"/>
+                        <Button Content="🧾  الفواتير والحسابات" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="الفواتير" Tag="{Binding IsInvoicesActive}"/>
+                        <Button Content="📦  المستودع وقطع الغيار" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="قطع الغيار" Tag="{Binding IsSparePartsActive}" Visibility="{Binding SparePartsNavVisibility}"/>
+                        <Button Content="🛠️  كتالوج الخدمات والأجور" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="الخدمات" Tag="{Binding IsServicesActive}" Visibility="{Binding ServicesNavVisibility}"/>
+                        <Button Content="👨‍🔧  الفنيين" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="الفنيين" Tag="{Binding IsTechniciansActive}" Visibility="{Binding TechniciansNavVisibility}"/>
+                        <Button Content="💰  تسوية العمولات" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="تسوية العمولات" Tag="{Binding IsCommissionsActive}"/>
+                        <Button Content="🏢  الموردين والمشتريات" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="الموردين" Tag="{Binding IsSuppliersActive}"/>
+                        <Button Content="👤  إدارة المستخدمين" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="المستخدمين" Tag="{Binding IsUsersActive}" Visibility="{Binding UsersNavVisibility}"/>
+                        <Button Content="📈  التقارير والإحصائيات" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="التقارير" Tag="{Binding IsReportsActive}"/>
+                        <Button Content="💾  النسخ الاحتياطي" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="النسخ الاحتياطي" Tag="{Binding IsBackupActive}" Visibility="{Binding BackupNavVisibility}"/>
+                        <Button Content="📜  سجل العمليات والتدقيق" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="سجل العمليات" Tag="{Binding IsAuditActive}" Visibility="{Binding AuditNavVisibility}"/>
+                        <Button Content="🗑️  سلة المحذوفات والأرشيف" Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="سلة المحذوفات" Tag="{Binding IsRecycleBinActive}" Visibility="{Binding RecycleBinNavVisibility}"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Footer User Badge & Logout -->
+                <Border Grid.Row="2" Background="#0A1E30" BorderBrush="#1E3A5F" BorderThickness="0,1,0,0" Padding="14,0">
+                    <Grid VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding ActiveFullName, FallbackValue='مستخدم النظام'}" FontSize="13" FontWeight="Bold" Foreground="#FFFFFF"/>
+                            <TextBlock Text="{Binding RoleLabel, FallbackValue='مدير النظام'}" FontSize="11" Foreground="#38BDF8"/>
+                        </StackPanel>
+                        <Button Grid.Column="1" Content="خروج" Width="64" Height="34" Background="#F43F5E" Foreground="#FFFFFF" 
+                                FontWeight="Bold" FontSize="12.5" BorderThickness="0" Cursor="Hand"
+                                ToolTip="تسجيل الخروج وإغلاق البرنامج" Command="{Binding LogoutCommand}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8" SnapsToDevicePixels="True">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="bd" Property="Background" Value="#E11D48"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="bd" Property="Background" Value="#BE123C"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- ── Main Content Area ── -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="58"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Top Header Glass Bar (ZIndex=1100 keeps Bell button on top for reliable toggle) -->
+            <Border Grid.Row="0" Panel.ZIndex="1100" Background="{DynamicResource GlassHeaderGradientBrush}" 
+                    BorderBrush="{DynamicResource GlassBorderSubtleBrush}" BorderThickness="0,0,0,1" Padding="20,0">
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Right Section (RTL): Live Date and Digital Clock -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="📅" FontSize="13" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding CurrentDate, FallbackValue='التاريخ'}" 
+                                   FontSize="13.5" FontWeight="SemiBold" Foreground="#475569" VerticalAlignment="Center"/>
+                        
+                        <Border Background="#F0F9FF" BorderBrush="#BAE6FD" BorderThickness="1" CornerRadius="12" 
+                                Padding="12,5" Margin="18,0,0,0" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="🕒" FontSize="12" Margin="0,0,6,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding CurrentTime, FallbackValue='00:00:00'}" 
+                                           FontSize="13" FontWeight="Bold" Foreground="#0284C7" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Center Section (RTL): Multi-Branch Executive Switcher (Admin / Accountant) & Branch Badge (Receptionist) -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <!-- Admin & Accountant Branch Selector Dropdown -->
+                        <Border Background="#F8FAFC" BorderBrush="#0284C7" BorderThickness="1.5" CornerRadius="14" 
+                                Padding="10,4" Margin="10,0" VerticalAlignment="Center"
+                                Visibility="{Binding BranchSelectorVisibility}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#0284C7" Direction="270" ShadowDepth="1" BlurRadius="6" Opacity="0.12"/>
+                            </Border.Effect>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="🏢 الفرع:" FontWeight="Bold" FontSize="13" Foreground="#0369A1" 
+                                           VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <ComboBox ItemsSource="{Binding AvailableBranches}"
+                                          SelectedItem="{Binding SelectedBranch}"
+                                          DisplayMemberPath="Name"
+                                          Width="210" Height="32"
+                                          FontSize="13" FontWeight="Bold"
+                                          VerticalContentAlignment="Center"
+                                          Cursor="Hand"
+                                          Background="Transparent"
+                                          BorderThickness="0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Receptionist Fixed Branch Badge -->
+                        <Border Background="#F0FDF4" BorderBrush="#86EFAC" BorderThickness="1.2" CornerRadius="12" 
+                                Padding="12,5" Margin="10,0" VerticalAlignment="Center"
+                                Visibility="{Binding ReceptionistBranchBadgeVisibility}">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="📍 فرع العمل:" FontSize="12.5" FontWeight="SemiBold" Foreground="#15803D" Margin="0,0,6,0"/>
+                                <TextBlock Text="{Binding CurrentBranchName}" FontSize="13" FontWeight="Bold" Foreground="#166534"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Left Section (RTL): Notification Bell Button + User Role Badge -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- Notification Bell Button: Always on top, true toggle -->
+                        <Button x:Name="NotificationBellButton"
+                                Command="{Binding ToggleNotificationsCommand}"
+                                Background="Transparent" BorderThickness="0" Cursor="Hand" Margin="0,0,16,0"
+                                ToolTip="مركز الإشعارات والتنبيهات"
+                                Visibility="{Binding NotificationsButtonVisibility}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <Border x:Name="bellBorder" Width="40" Height="40" CornerRadius="20" 
+                                                Background="#F1F5F9" BorderBrush="#CBD5E1" BorderThickness="1.2">
+                                            <TextBlock Text="🔔" FontSize="17" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                        <!-- Unread Badge Pill -->
+                                        <Border Background="#EF4444" CornerRadius="9" MinWidth="18" Height="18" 
+                                                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-4,-3,0,0"
+                                                BorderBrush="#FFFFFF" BorderThickness="1.5"
+                                                Visibility="{Binding UnreadBadgeVisibility}">
+                                            <TextBlock Text="{Binding UnreadCount}" Foreground="#FFFFFF" 
+                                                       FontSize="10" FontWeight="Bold" 
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0"/>
+                                        </Border>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="bellBorder" Property="Background" Value="#E0F2FE"/>
+                                            <Setter TargetName="bellBorder" Property="BorderBrush" Value="#38BDF8"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <!-- User Role Badge -->
+                        <Border Background="#0284C7" CornerRadius="16" Height="34" Padding="14,0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding RoleLabel, FallbackValue='مدير النظام'}" Foreground="#FFFFFF" 
+                                       FontWeight="Bold" FontSize="12.5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Active View Screen Content Host -->
+            <ContentControl Grid.Row="1" Content="{Binding CurrentView}" Focusable="False" Margin="0"/>
+
+            <!-- ── Modern Floating Notification Center Flyout Overlay Anchored Directly Under Bell Button ── -->
+            <Grid Grid.Row="0" Grid.RowSpan="2" Panel.ZIndex="1000" 
+                  Visibility="{Binding NotificationsFlyoutVisibility}">
+                
+                <!-- Dimmed Backdrop (click anywhere outside to dismiss) -->
+                <Button Command="{Binding CloseNotificationsCommand}"
+                        Background="#0F172A" Opacity="0.08" BorderThickness="0"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                        Cursor="Arrow">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Rectangle Fill="{TemplateBinding Background}"/>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <!-- Floating Card Container Anchored DIRECTLY Under the Bell Button (Visual Left in RTL) -->
+                <Border Width="430" MaxHeight="560" Background="#FFFFFF" CornerRadius="18"
+                        BorderBrush="#CBD5E1" BorderThickness="1"
+                        HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,68,24,0">
+                    <Border.Effect>
+                        <DropShadowEffect Color="#0F172A" Direction="270" ShadowDepth="10" BlurRadius="28" Opacity="0.18"/>
+                    </Border.Effect>
+
+                    <DockPanel>
+                        <!-- Top Header Bar -->
+                        <Border DockPanel.Dock="Top" Background="#F8FAFC" Padding="20,16" 
+                                BorderBrush="#E2E8F0" BorderThickness="0,0,0,1" CornerRadius="18,18,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Border Width="34" Height="34" CornerRadius="17" Background="#E0F2FE" Margin="0,0,10,0">
+                                        <TextBlock Text="🔔" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <TextBlock Text="مركز الإشعارات والتنبيهات" FontWeight="Bold" FontSize="14.5" Foreground="#0F172A" VerticalAlignment="Center"/>
+                                    
+                                    <Border Background="#EFF6FF" BorderBrush="#BFDBFE" BorderThickness="1" CornerRadius="10" 
+                                            Padding="8,3" Margin="10,0,0,0" VerticalAlignment="Center"
+                                            Visibility="{Binding UnreadBadgeVisibility}">
+                                        <TextBlock Text="{Binding UnreadCount, StringFormat='{}{0} جديد'}" 
+                                                   Foreground="#0284C7" FontSize="11" FontWeight="Bold"/>
+                                    </Border>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Button Content="تفريغ اللوحة 🧹" 
+                                            Command="{Binding ClearNotificationsCommand}" 
+                                            Background="Transparent" BorderThickness="0" 
+                                            Foreground="#DC2626" Cursor="Hand" FontSize="11.5" FontWeight="Bold"
+                                            Margin="0,0,12,0" VerticalAlignment="Center"/>
+
+                                    <Button Content="تحديد الكل كمقروء" 
+                                            Command="{Binding MarkAllReadCommand}" 
+                                            Background="Transparent" BorderThickness="0" 
+                                            Foreground="#0284C7" Cursor="Hand" FontSize="11.5" FontWeight="SemiBold"
+                                            Margin="0,0,10,0" VerticalAlignment="Center"/>
+
+                                    <Button Command="{Binding CloseNotificationsCommand}"
+                                            Background="#F1F5F9" BorderThickness="0" Cursor="Hand"
+                                            Width="28" Height="28">
+                                        <Button.Template>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="14">
+                                                    <TextBlock Text="✕" FontSize="11" FontWeight="Bold" Foreground="#64748B" 
+                                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- Bottom Footer Bar -->
+                        <Border DockPanel.Dock="Bottom" Padding="18,12" Background="#F8FAFC" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" CornerRadius="0,0,18,18">
+                            <Grid>
+                                <TextBlock Text="💡 انقر على التنبيه للانتقال الفوري إلى الشاشة المختصة" FontSize="11.5" Foreground="#64748B" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <Button Content="تحديث 🔄" 
+                                        Command="{Binding RefreshNotificationsCommand}" 
+                                        HorizontalAlignment="Left" Background="Transparent" BorderThickness="0" 
+                                        Foreground="#0284C7" Cursor="Hand" FontSize="11.5" FontWeight="SemiBold"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Content Area: Either Empty State or Scrollable List with Generous Spacing -->
+                        <Grid MinHeight="180">
+                            <!-- Empty State Card -->
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,40"
+                                        Visibility="{Binding EmptyStateVisibility}">
+                                <Border Width="64" Height="64" CornerRadius="32" Background="#F0FDF4" BorderBrush="#BBF7D0" BorderThickness="1.5" HorizontalAlignment="Center" Margin="0,0,0,12">
+                                    <TextBlock Text="✨" FontSize="28" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <TextBlock Text="لا توجد تنبيهات جديدة" FontWeight="Bold" FontSize="15" Foreground="#1E293B" HorizontalAlignment="Center"/>
+                                <TextBlock Text="جميع مؤشرات المخزون وأوامر الصيانة بحالة ممتازة" FontSize="12.5" Foreground="#64748B" HorizontalAlignment="Center" Margin="0,6,0,0"/>
+                            </StackPanel>
+
+                            <!-- Notifications List with Distinct Spaced Cards -->
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                                          Padding="18,16"
+                                          Visibility="{Binding NotificationsListVisibility}">
+                                <ItemsControl ItemsSource="{Binding Notifications}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <!-- Notification Card: Robust Window-scoped binding for seamless navigation -->
+                                            <Button Command="{Binding DataContext.NotificationClickCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                    CommandParameter="{Binding}"
+                                                    HorizontalContentAlignment="Stretch"
+                                                    Background="Transparent" BorderThickness="0" Padding="0" Cursor="Hand"
+                                                    Margin="0,0,0,12">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="Transparent" SnapsToDevicePixels="True">
+                                                            <ContentPresenter/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                
+                                                <Border Padding="16,14" CornerRadius="14" BorderThickness="1.2"
+                                                        Background="{Binding SeverityBgColor}"
+                                                        BorderBrush="{Binding SeverityBorderColor}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="44"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <!-- Severity Icon Pill -->
+                                                        <Border Grid.Column="0" Width="38" Height="38" CornerRadius="19" 
+                                                                Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" 
+                                                                VerticalAlignment="Top" HorizontalAlignment="Center">
+                                                            <TextBlock Text="{Binding SeverityIcon}" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+
+                                                        <!-- Text Content with generous breathing room -->
+                                                        <StackPanel Grid.Column="1" Margin="12,0,0,0">
+                                                            <Grid>
+                                                                <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="13.5" Foreground="#0F172A" VerticalAlignment="Center"/>
+                                                                <TextBlock Text="{Binding FormattedTime}" FontSize="11" Foreground="#94A3B8" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                            </Grid>
+                                                             
+                                                            <TextBlock Text="{Binding Message}" FontSize="12" Foreground="#475569" TextWrapping="Wrap" Margin="0,6,0,0" LineHeight="18"/>
+                                                            
+                                                            <!-- Category pill tag -->
+                                                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                                                <Border Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="8,2">
+                                                                    <TextBlock Text="{Binding Category}" FontSize="10.5" FontWeight="SemiBold" Foreground="#64748B"/>
+                                                                </Border>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                            </Button>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+                    </DockPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

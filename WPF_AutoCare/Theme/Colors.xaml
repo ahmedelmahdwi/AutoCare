@@ -1,0 +1,802 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- =========================================================================
+         Light Crystal Liquid Glass Palette (Base: #0284C7 | RGB: 2, 132, 199)
+         ========================================================================= -->
+
+    <!-- Base Liquid Azure Color -->
+    <Color x:Key="PrimaryColor">#0284C7</Color>
+
+    <!-- Light Liquid Variations (Crystal Tints) -->
+    <Color x:Key="PrimaryLightColor">#38BDF8</Color>
+    <Color x:Key="PrimaryLight1Color">#38BDF8</Color>
+    <Color x:Key="PrimaryLight2Color">#7DD3FC</Color>
+    <Color x:Key="PrimaryLight3Color">#BAE6FD</Color>
+    <Color x:Key="PrimaryTintLightColor">#E0F2FE</Color>
+    <Color x:Key="PrimaryTintUltraLightColor">#F0F9FF</Color>
+
+    <!-- Dark Liquid Variations (Oceanic Depth) -->
+    <Color x:Key="PrimaryDarkColor">#0369A1</Color>
+    <Color x:Key="PrimaryDark1Color">#0369A1</Color>
+    <Color x:Key="PrimaryDark2Color">#075985</Color>
+    <Color x:Key="PrimaryDark3Color">#0C4A6E</Color>
+
+    <!-- Accent Colors (Luminous Liquid Gems) -->
+    <Color x:Key="AccentColor">#F59E0B</Color>
+    <Color x:Key="AccentAmberColor">#F59E0B</Color>
+    <Color x:Key="AccentAmberDarkColor">#D97706</Color>
+    <Color x:Key="AccentGreenColor">#10B981</Color>
+    <Color x:Key="AccentGreenDarkColor">#059669</Color>
+    <Color x:Key="AccentRedColor">#F43F5E</Color>
+    <Color x:Key="AccentRedDarkColor">#E11D48</Color>
+    <Color x:Key="AccentPurpleColor">#6366F1</Color>
+    <Color x:Key="AccentPurpleDarkColor">#4F46E5</Color>
+
+    <!-- Neutrals & Soothing Canvas Surfaces -->
+    <Color x:Key="BackgroundColor">#EAF0F6</Color>
+    <Color x:Key="SurfaceColor">#FFFFFF</Color>
+    <Color x:Key="TextColor">#0F172A</Color>
+    <Color x:Key="TextMutedColor">#475569</Color>
+    <Color x:Key="BorderColor">#C8D7E6</Color>
+    <Color x:Key="GridLineColor">#DEE8F2</Color>
+    <Color x:Key="RowOddColor">#F4F8FC</Color>
+
+    <!-- Card Background Colors (Translucent Liquid Infusions) -->
+    <Color x:Key="CardBgAmberColor">#FFFBEB</Color>
+    <Color x:Key="CardBgPrimaryColor">#F0F9FF</Color>
+    <Color x:Key="CardBgGreenColor">#ECFDF5</Color>
+    <Color x:Key="CardBgPurpleColor">#EEF2FF</Color>
+    <Color x:Key="CardBgCyanColor">#ECFEFF</Color>
+
+    <!-- =========================================================================
+         SolidColorBrushes
+         ========================================================================= -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="PrimaryColorBrush" Color="{StaticResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLightColor}"/>
+    <SolidColorBrush x:Key="PrimaryLightColorBrush" Color="{StaticResource PrimaryLightColor}"/>
+    <SolidColorBrush x:Key="PrimaryLight2Brush" Color="{StaticResource PrimaryLight2Color}"/>
+    <SolidColorBrush x:Key="PrimaryLight3Brush" Color="{StaticResource PrimaryLight3Color}"/>
+    <SolidColorBrush x:Key="PrimaryTintLightBrush" Color="{StaticResource PrimaryTintLightColor}"/>
+    <SolidColorBrush x:Key="PrimaryTintUltraLightBrush" Color="{StaticResource PrimaryTintUltraLightColor}"/>
+
+    <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
+    <SolidColorBrush x:Key="PrimaryDarkColorBrush" Color="{StaticResource PrimaryDarkColor}"/>
+    <SolidColorBrush x:Key="PrimaryDark2Brush" Color="{StaticResource PrimaryDark2Color}"/>
+    <SolidColorBrush x:Key="PrimaryDark3Brush" Color="{StaticResource PrimaryDark3Color}"/>
+
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}"/>
+    <SolidColorBrush x:Key="AccentAmberBrush" Color="{StaticResource AccentAmberColor}"/>
+    <SolidColorBrush x:Key="AccentAmberDarkBrush" Color="{StaticResource AccentAmberDarkColor}"/>
+    <SolidColorBrush x:Key="AccentGreenBrush" Color="{StaticResource AccentGreenColor}"/>
+    <SolidColorBrush x:Key="AccentGreenDarkBrush" Color="{StaticResource AccentGreenDarkColor}"/>
+    <SolidColorBrush x:Key="AccentRedBrush" Color="{StaticResource AccentRedColor}"/>
+    <SolidColorBrush x:Key="AccentRedDarkBrush" Color="{StaticResource AccentRedDarkColor}"/>
+    <SolidColorBrush x:Key="AccentPurpleBrush" Color="{StaticResource AccentPurpleColor}"/>
+    <SolidColorBrush x:Key="AccentPurpleDarkBrush" Color="{StaticResource AccentPurpleDarkColor}"/>
+
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}"/>
+    <SolidColorBrush x:Key="SurfaceColorBrush" Color="{StaticResource SurfaceColor}"/>
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}"/>
+    <SolidColorBrush x:Key="TextColorBrush" Color="{StaticResource TextColor}"/>
+    <SolidColorBrush x:Key="TextMutedBrush" Color="{StaticResource TextMutedColor}"/>
+    <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
+    <SolidColorBrush x:Key="GridLineBrush" Color="{StaticResource GridLineColor}"/>
+    <SolidColorBrush x:Key="DataGridRowEvenBrush" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="DataGridRowOddBrush" Color="{StaticResource RowOddColor}"/>
+    <SolidColorBrush x:Key="DataGridRowSelectedBrush" Color="{StaticResource PrimaryLight3Color}"/>
+
+    <!-- Card Brushes -->
+    <SolidColorBrush x:Key="CardBgAmberBrush" Color="{StaticResource CardBgAmberColor}"/>
+    <SolidColorBrush x:Key="CardBgPrimaryBrush" Color="{StaticResource CardBgPrimaryColor}"/>
+    <SolidColorBrush x:Key="CardBgGreenBrush" Color="{StaticResource CardBgGreenColor}"/>
+    <SolidColorBrush x:Key="CardBgPurpleBrush" Color="{StaticResource CardBgPurpleColor}"/>
+    <SolidColorBrush x:Key="CardBgCyanBrush" Color="{StaticResource CardBgCyanColor}"/>
+
+    <!-- =========================================================================
+         Liquid Glass LinearGradientBrushes
+         ========================================================================= -->
+    <!-- Primary Fluid Glass Gradient -->
+    <LinearGradientBrush x:Key="PrimaryGradientBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#38BDF8" Offset="0.0"/>
+        <GradientStop Color="#0284C7" Offset="0.5"/>
+        <GradientStop Color="#0369A1" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <!-- NavBar Gradient: Deep oceanic crystal glass -->
+    <LinearGradientBrush x:Key="NavBarGradientBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#0F283C" Offset="0.0"/>
+        <GradientStop Color="#0B2032" Offset="0.5"/>
+        <GradientStop Color="#071724" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <!-- DataGrid Header: Crisp liquid azure gradient -->
+    <LinearGradientBrush x:Key="DataGridHeaderBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#0284C7" Offset="0.0"/>
+        <GradientStop Color="#0369A1" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <!-- Button Action Gradients -->
+    <LinearGradientBrush x:Key="ButtonPrimaryGradientBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#38BDF8" Offset="0.0"/>
+        <GradientStop Color="#0284C7" Offset="0.55"/>
+        <GradientStop Color="#0369A1" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ButtonGreenGradientBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#34D399" Offset="0.0"/>
+        <GradientStop Color="#10B981" Offset="0.5"/>
+        <GradientStop Color="#059669" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ButtonRedGradientBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FB7185" Offset="0.0"/>
+        <GradientStop Color="#F43F5E" Offset="0.5"/>
+        <GradientStop Color="#E11D48" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ButtonAmberGradientBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#FBBF24" Offset="0.0"/>
+        <GradientStop Color="#F59E0B" Offset="0.5"/>
+        <GradientStop Color="#D97706" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <!-- =========================================================================
+         Liquid Glass Design System Tokens
+         ========================================================================= -->
+    <!-- Frosted Crystal Surfaces -->
+    <SolidColorBrush x:Key="GlassSurfaceBrush" Color="#E6FFFFFF"/>
+    <SolidColorBrush x:Key="GlassCardBrush" Color="#F4FFFFFF"/>
+    <SolidColorBrush x:Key="GlassBorderBrush" Color="#80BAE6FD"/>
+    <SolidColorBrush x:Key="GlassBorderSubtleBrush" Color="#40BAE6FD"/>
+    <SolidColorBrush x:Key="GlassInputBgBrush" Color="#F8FCFE"/>
+    <SolidColorBrush x:Key="GlassDarkCardBrush" Color="#CC0A2234"/>
+    <SolidColorBrush x:Key="GlassDarkBorderBrush" Color="#4038BDF8"/>
+
+    <!-- Ambient Mesh & Header Gradients -->
+    <LinearGradientBrush x:Key="GlassMeshGradientBrush" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#F0F9FF" Offset="0.0"/>
+        <GradientStop Color="#E0F2FE" Offset="0.4"/>
+        <GradientStop Color="#BAE6FD" Offset="0.8"/>
+        <GradientStop Color="#E0F2FE" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GlassNavBarBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#F00F283C" Offset="0.0"/>
+        <GradientStop Color="#F40B2032" Offset="0.6"/>
+        <GradientStop Color="#F8071724" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GlassHeaderGradientBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#F8FFFFFF" Offset="0.0"/>
+        <GradientStop Color="#E8F4F9" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <!-- =========================================================================
+         Global Typography: Header Font (HasanAya) vs Body/Data Font (Segoe UI)
+         ========================================================================= -->
+    <FontFamily x:Key="HeaderFontFamily">HasanAyaW23-Regular, Tahoma, Segoe UI</FontFamily>
+    <FontFamily x:Key="BodyFontFamily">Segoe UI, Tahoma, Arial</FontFamily>
+
+    <!-- =========================================================================
+         Standard Clean Architecture DataGrid Styles (Matching UI.StyleGrid 100%)
+         ========================================================================= -->
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Background" Value="{StaticResource DataGridHeaderBrush}"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="FontFamily" Value="{StaticResource HeaderFontFamily}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="0,0,1,0"/>
+        <Setter Property="BorderBrush" Value="#0369A1"/>
+    </Style>
+
+    <Style TargetType="DataGridRow">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="FontFamily" Value="Segoe UI, Tahoma, Arial"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource DataGridRowSelectedBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#E0F2FE"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGridCell">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="8,0"/>
+        <Setter Property="FontFamily" Value="Segoe UI, Tahoma, Arial"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="RowBackground" Value="{StaticResource DataGridRowEvenBrush}"/>
+        <Setter Property="AlternatingRowBackground" Value="{StaticResource DataGridRowOddBrush}"/>
+        <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+        <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource GridLineBrush}"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="ColumnHeaderHeight" Value="42"/>
+        <Setter Property="RowHeight" Value="40"/>
+        <Setter Property="AutoGenerateColumns" Value="False"/>
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="FontFamily" Value="Segoe UI, Tahoma, Arial"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="FlowDirection" Value="RightToLeft"/>
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display"/>
+        <Setter Property="TextOptions.TextRenderingMode" Value="ClearType"/>
+    </Style>
+
+    <!-- =========================================================================
+         Standard Premium Dialog Button Styles (Save, Close, Cancel, Action)
+         ========================================================================= -->
+    <!-- Dialog Save / Confirm Button (Emerald Green Gradient + Shadow + Tactile Feedback) -->
+    <Style x:Key="BtnDialogSave" TargetType="Button">
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="MinWidth" Value="135"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Background" Value="{StaticResource ButtonGreenGradientBrush}"/>
+        <Setter Property="BorderBrush" Value="#059669"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="20,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd" Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Opacity="0.16" Color="#059669"/>
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#34D399" Offset="0.0"/>
+                                        <GradientStop Color="#10B981" Offset="0.5"/>
+                                        <GradientStop Color="#047857" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="bd" Property="BorderBrush" Value="#10B981"/>
+                            <Setter TargetName="bd" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="12" ShadowDepth="3" Direction="270" Opacity="0.28" Color="#10B981"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bd" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#059669" Offset="0.0"/>
+                                        <GradientStop Color="#047857" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="bd" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform Y="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bd" Property="Background" Value="#E2E8F0"/>
+                            <Setter TargetName="bd" Property="BorderBrush" Value="#CBD5E1"/>
+                            <Setter Property="Foreground" Value="#94A3B8"/>
+                            <Setter TargetName="bd" Property="Effect" Value="{x:Null}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Dialog Primary Blue Button (Sapphire Gradient + Shadow) -->
+    <Style x:Key="BtnDialogPrimary" TargetType="Button">
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="MinWidth" Value="135"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Background" Value="{StaticResource ButtonPrimaryGradientBrush}"/>
+        <Setter Property="BorderBrush" Value="#0284C7"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="20,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd" Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Opacity="0.16" Color="#0284C7"/>
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                         <GradientStop Color="#7DD3FC" Offset="0.0"/>
+                                         <GradientStop Color="#0284C7" Offset="0.5"/>
+                                         <GradientStop Color="#0369A1" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="bd" Property="BorderBrush" Value="#38BDF8"/>
+                            <Setter TargetName="bd" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="12" ShadowDepth="3" Direction="270" Opacity="0.28" Color="#0284C7"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bd" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#0284C7" Offset="0.0"/>
+                                        <GradientStop Color="#0369A1" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="bd" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform Y="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bd" Property="Background" Value="#E2E8F0"/>
+                            <Setter TargetName="bd" Property="BorderBrush" Value="#CBD5E1"/>
+                            <Setter Property="Foreground" Value="#94A3B8"/>
+                            <Setter TargetName="bd" Property="Effect" Value="{x:Null}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Dialog Close / Cancel Button (Refined Slate Card Surface + Rose/Crimson Hover) -->
+    <Style x:Key="BtnDialogCancel" TargetType="Button">
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="MinWidth" Value="115"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#475569"/>
+        <Setter Property="Background" Value="#F8FAFC"/>
+        <Setter Property="BorderBrush" Value="#CBD5E1"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Padding" Value="18,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd" Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="8">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="#FEE2E2"/>
+                            <Setter TargetName="bd" Property="BorderBrush" Value="#F87171"/>
+                            <Setter Property="Foreground" Value="#DC2626"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="#FECACA"/>
+                            <Setter TargetName="bd" Property="BorderBrush" Value="#EF4444"/>
+                            <Setter Property="Foreground" Value="#B91C1C"/>
+                            <Setter TargetName="bd" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform Y="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BtnDialogClose" TargetType="Button" BasedOn="{StaticResource BtnDialogCancel}"/>
+
+    <!-- Dialog Warning Action Button (Amber Gradient) -->
+    <Style x:Key="BtnDialogWarning" TargetType="Button">
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="MinWidth" Value="125"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Background" Value="{StaticResource ButtonAmberGradientBrush}"/>
+        <Setter Property="BorderBrush" Value="#D97706"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="18,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd" Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="8">
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Opacity="0.16" Color="#D97706"/>
+                        </Border.Effect>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Color="#FDE68A" Offset="0.0"/>
+                                        <GradientStop Color="#F59E0B" Offset="0.5"/>
+                                        <GradientStop Color="#B45309" Offset="1.0"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="bd" Property="BorderBrush" Value="#F59E0B"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="bd" Property="RenderTransform">
+                                <Setter.Value>
+                                    <TranslateTransform Y="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- =========================================================================
+         Unified Modern ComboBox Styles (All Screens, Filters, and Dialogs)
+         ========================================================================= -->
+
+    <!-- ComboBox Toggle Button Template -->
+    <ControlTemplate x:Key="ModernComboBoxToggleButtonTemplate" TargetType="{x:Type ToggleButton}">
+        <Border x:Name="templateRoot" 
+                Background="{TemplateBinding Background}" 
+                BorderBrush="{TemplateBinding BorderBrush}" 
+                BorderThickness="{TemplateBinding BorderThickness}" 
+                CornerRadius="8" 
+                SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="32"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Path x:Name="arrow" 
+                          Data="M 0 0 L 4.5 4.5 L 9 0" 
+                          Stroke="#64748B" 
+                          StrokeThickness="2" 
+                          StrokeStartLineCap="Round" 
+                          StrokeEndLineCap="Round" 
+                          HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" 
+                          SnapsToDevicePixels="True"/>
+                </Border>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="templateRoot" Property="BorderBrush" Value="#0284C7"/>
+                <Setter TargetName="templateRoot" Property="Background" Value="#F8FAFC"/>
+                <Setter TargetName="arrow" Property="Stroke" Value="#0284C7"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="templateRoot" Property="BorderBrush" Value="#0284C7"/>
+                <Setter TargetName="arrow" Property="Stroke" Value="#0284C7"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="templateRoot" Property="Opacity" Value="0.6"/>
+                <Setter TargetName="arrow" Property="Stroke" Value="#94A3B8"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- Modern ComboBoxItem Style -->
+    <Style x:Key="ModernComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="#1E293B"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="itemBorder" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="6" 
+                            Margin="3,2" 
+                            Padding="{TemplateBinding Padding}" 
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="itemBorder" Property="Background" Value="#F0F9FF"/>
+                            <Setter Property="Foreground" Value="#0284C7"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="itemBorder" Property="Background" Value="#E0F2FE"/>
+                            <Setter Property="Foreground" Value="#0369A1"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="itemBorder" Property="Background" Value="#BAE6FD"/>
+                            <Setter Property="Foreground" Value="#0284C7"/>
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Implicit ComboBoxItem Style -->
+    <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource ModernComboBoxItemStyle}"/>
+
+    <!-- Modern ComboBox Style -->
+    <Style x:Key="ModernComboBoxStyle" TargetType="{x:Type ComboBox}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="#FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#CBD5E1"/>
+        <Setter Property="BorderThickness" Value="1.2"/>
+        <Setter Property="Foreground" Value="#0F172A"/>
+        <Setter Property="MinHeight" Value="36"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="Padding" Value="12,0,32,0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ModernComboBoxItemStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
+                        <ToggleButton x:Name="toggleButton" 
+                                      Background="{TemplateBinding Background}" 
+                                      BorderBrush="{TemplateBinding BorderBrush}" 
+                                      BorderThickness="{TemplateBinding BorderThickness}" 
+                                      Focusable="False" 
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                      Template="{StaticResource ModernComboBoxToggleButtonTemplate}"/>
+
+                        <ContentPresenter x:Name="contentPresenter" 
+                                          Content="{TemplateBinding SelectionBoxItem}" 
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                                          ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" 
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                          IsHitTestVisible="False" 
+                                          Margin="{TemplateBinding Padding}" 
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+
+                        <Popup x:Name="PART_Popup" 
+                               AllowsTransparency="True" 
+                               IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                               Placement="Bottom" 
+                               PopupAnimation="Slide" 
+                               Margin="1">
+                            <Border x:Name="dropDownBorder" 
+                                    Background="#FFFFFF" 
+                                    BorderBrush="#0284C7" 
+                                    BorderThickness="1.5" 
+                                    CornerRadius="10" 
+                                    MinWidth="{Binding ActualWidth, ElementName=templateRoot}" 
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}" 
+                                    SnapsToDevicePixels="True" 
+                                    Margin="0,3,0,8">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="16" Direction="270" ShadowDepth="4" Opacity="0.16" Color="#0F172A"/>
+                                </Border.Effect>
+                                <ScrollViewer x:Name="DropDownScrollViewer" CanContentScroll="True" Margin="2,4">
+                                    <ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="HasItems" Value="False">
+                            <Setter TargetName="dropDownBorder" Property="Height" Value="50"/>
+                        </Trigger>
+                        <Trigger Property="IsGrouping" Value="True">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="#0284C7"/>
+                        </Trigger>
+                        <Trigger Property="IsDropDownOpen" Value="True">
+                            <Setter Property="BorderBrush" Value="#0284C7"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Implicit ComboBox Style (Applies automatically to ALL ComboBoxes in the app) -->
+    <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ModernComboBoxStyle}"/>
+
+    <!-- =========================================================================
+         Unified Modern TabControl & TabItem Styles (All Screens and Dialogs)
+         ========================================================================= -->
+
+    <!-- Modern TabItem Style -->
+    <Style x:Key="ModernTabItemStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="#FFFFFF"/>
+        <Setter Property="BorderBrush" Value="#E2E8F0"/>
+        <Setter Property="BorderThickness" Value="1.5"/>
+        <Setter Property="Foreground" Value="#475569"/>
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Padding" Value="18,9"/>
+        <Setter Property="Margin" Value="0,4,10,4"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Border x:Name="templateRoot" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="9" 
+                            Padding="{TemplateBinding Padding}" 
+                            Cursor="{TemplateBinding Cursor}" 
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter x:Name="contentPresenter" 
+                                          ContentSource="Header" 
+                                          Focusable="False" 
+                                          HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center" 
+                                          RecognizesAccessKey="True" 
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="templateRoot" Property="Background" Value="#F0F9FF"/>
+                            <Setter TargetName="templateRoot" Property="BorderBrush" Value="#38BDF8"/>
+                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="#0284C7"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="templateRoot" Property="Background" Value="#0284C7"/>
+                            <Setter TargetName="templateRoot" Property="BorderBrush" Value="#0284C7"/>
+                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="#FFFFFF"/>
+                            <Setter TargetName="contentPresenter" Property="TextElement.FontWeight" Value="Bold"/>
+                            <Setter TargetName="templateRoot" Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect BlurRadius="8" Direction="270" ShadowDepth="2" Opacity="0.22" Color="#0284C7"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="templateRoot" Property="Background" Value="#0369A1"/>
+                            <Setter TargetName="templateRoot" Property="BorderBrush" Value="#0369A1"/>
+                            <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="#FFFFFF"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="templateRoot" Property="Opacity" Value="0.45"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Implicit TabItem Style -->
+    <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource ModernTabItemStyle}"/>
+
+    <!-- Modern TabControl Style -->
+    <Style x:Key="ModernTabControlStyle" TargetType="{x:Type TabControl}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <Grid KeyboardNavigation.TabNavigation="Local" SnapsToDevicePixels="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Margin="0,2,0,8" Padding="0,3,0,3" Background="Transparent" SnapsToDevicePixels="True">
+                            <TabPanel x:Name="HeaderPanel" 
+                                      Panel.ZIndex="1" 
+                                      IsItemsHost="True" 
+                                      KeyboardNavigation.TabIndex="1"/>
+                        </Border>
+                        <Border x:Name="ContentPanel" 
+                                Grid.Row="1" 
+                                Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                KeyboardNavigation.DirectionalNavigation="Contained" 
+                                KeyboardNavigation.TabIndex="2" 
+                                KeyboardNavigation.TabNavigation="Local"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch">
+                            <ContentPresenter x:Name="PART_SelectedContentHost" 
+                                              ContentSource="SelectedContent" 
+                                              Margin="{TemplateBinding Padding}" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Implicit TabControl Style -->
+    <Style TargetType="{x:Type TabControl}" BasedOn="{StaticResource ModernTabControlStyle}"/>
+
+</ResourceDictionary>

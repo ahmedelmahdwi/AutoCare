@@ -1,0 +1,73 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="إضافة خدمة جديدة للكتالوج" Width="480" Height="420"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        FlowDirection="RightToLeft"
+        FontFamily="Segoe UI, Tahoma, Arial"
+        Background="{DynamicResource BackgroundBrush}">
+
+    <Window.Resources>
+        <Style x:Key="DlgInputStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="FontSize" Value="13.5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="Margin" Value="0,4,0,12"/>
+        </Style>
+
+        <Style x:Key="DlgBtnStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Background" Value="#0284C7"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="24,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#38BDF8"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#0369A1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="22">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="إضافة خدمة جديدة للكتالوج" FontSize="20" FontWeight="Bold" FontFamily="{StaticResource HeaderFontFamily}" Foreground="#0F172A" Margin="0,0,0,16"/>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="اسم الخدمة:" FontSize="13" Foreground="#475569"/>
+            <TextBox Text="{Binding ServiceName, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DlgInputStyle}"/>
+
+            <TextBlock Text="سعر الخدمة (د.ل):" FontSize="13" Foreground="#475569"/>
+            <TextBox Text="{Binding StandardPrice, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DlgInputStyle}"/>
+
+            <TextBlock Text="تصنيف / قسم الخدمة:" FontSize="13" Foreground="#475569"/>
+            <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding Category}" Height="38" FontSize="13.5" Margin="0,4,0,12"/>
+        </StackPanel>
+
+        <Border Grid.Row="2" BorderBrush="#E2E8F0" BorderThickness="0,1,0,0" Padding="0,16,0,0" Margin="0,14,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="💾  حفظ الخدمة" Command="{Binding SaveCommand}" Style="{StaticResource BtnDialogSave}"/>
+                <Button Content="✕  إلغاء" Command="{Binding CancelCommand}" IsCancel="True" Style="{StaticResource BtnDialogCancel}" Margin="12,0,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
